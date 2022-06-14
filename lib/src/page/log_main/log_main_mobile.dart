@@ -88,7 +88,7 @@ class _MainLogMobilePageState extends State<MainLogMobilePage> {
       child: Scaffold(
         backgroundColor: CRLoggerColors.backgroundGrey,
         appBar: CRAppBar(
-          showLoggerVersion: true,
+          title: 'Debug',
           onBackPressed: widget.onLoggerClose,
           showBackButton: true,
           actions: [
