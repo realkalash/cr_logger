@@ -169,6 +169,7 @@ class CRLoggerInitializer {
     String? logFileName,
     int maxCountHttpLogs = 50,
     int maxCountOtherLogs = 50,
+    int maxMethodCount = 1,
     Logger? logger,
   }) async {
     if (inited) {
@@ -194,7 +195,7 @@ class CRLoggerInitializer {
     log = logger ??
         Logger(
           printer: PrettyCRPrinter(
-            methodCount: 1,
+            methodCount: maxMethodCount,
             errorMethodCount: 40,
             lineLength: 80,
             printTime: true,
