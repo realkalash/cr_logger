@@ -164,8 +164,8 @@ class _LogLocalDetailPageState extends State<LogLocalDetailPage> {
           if (stackCall.contains(packageName)) {
             final stackTraceParts = stackCall.split('package:');
             listWidgetStackTrace.add(
-              RichText(
-                text: TextSpan(
+              SelectableText.rich(
+                TextSpan(
                   children: [
                     TextSpan(
                       text: '${stackTraceParts.first}package:',
@@ -188,7 +188,7 @@ class _LogLocalDetailPageState extends State<LogLocalDetailPage> {
             );
           } else {
             listWidgetStackTrace.add(
-              Text(
+              SelectableText(
                 stackCall,
                 style: CRStyle.h3Black,
               ),
