@@ -354,8 +354,15 @@ class CRLoggerInitializer {
 
   /// Close hover button
   void dismissDebugButton() {
-    _buttonEntry?.remove();
-    _buttonEntry = null;
+    try {
+      _buttonEntry?.remove();
+      _buttonEntry = null;
+    } catch (e) {
+      /* Do nothing */
+      if (kDebugMode) {
+        print('dismissDebugButton $e');
+      }
+    }
   }
 
   void _showMenu(
