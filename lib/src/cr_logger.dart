@@ -456,7 +456,20 @@ class CRLoggerInitializer {
 }
 
 /// Run LoggerInitializer.instance.init() before using this
-late Logger log;
+Logger log = Logger(
+  printer: PrettyCRPrinter(
+    errorMethodCount: 40,
+    lineLength: 80,
+    printTime: true,
+    printEmojis: false,
+  ),
+  output: ConsoleLogOutput(),
+  filter:
+      CRLoggerInitializer.instance.isPrintingLogs ? ProductionFilter() : null,
+  level: CRLoggerInitializer.instance.isPrintingLogs
+      ? Level.verbose
+      : Level.nothing,
+);
 
 class PrettyCRPrinter extends LogPrinter {
   PrettyCRPrinter({
