@@ -1,8 +1,8 @@
 name: cr_logger
 description: Powerful logging plugin. Supports android, ios and web platforms.
 
-version: 1.0.2
-homepage: https://github.com/Cleveroad/cr_logger
+version: 1.0.3
+# homepage: https://github.com/Cleveroad/cr_logger
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
