@@ -30,6 +30,11 @@ Future<void> main() async {
     levelColors: {
       Level.debug: Colors.grey.shade300,
       Level.warning: Colors.orange,
+      Level.verbose: Colors.blue,
+      Level.info: Colors.blue,
+      Level.error: Colors.red,
+      Level.wtf: Colors.orange,
+      Level.nothing: Colors.grey,
     },
     hiddenFields: [
       'token',
@@ -408,7 +413,18 @@ class _MainPageState extends State<MainPage> {
           'double': 1.23,
           'string': 'text',
         },
-        'array_$i': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        'array_$i': [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+        ],
       });
     }
     await RestClient.instance.dio.get(
