@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cr_json_widget/cr_json_widget.dart';
 import 'package:cr_logger/src/widget/json_widget/json_node_content.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +55,10 @@ class JsonWidgetState extends State<JsonWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final jsonSizeBytes = widget.jsonObj == null
+        ? null
+        : jsonEncode(widget.jsonObj).codeUnits.length;
+
     return widget.jsonObj == null
         ? const SizedBox()
         : Padding(
@@ -66,6 +72,11 @@ class JsonWidgetState extends State<JsonWidget> {
                     padding: const EdgeInsets.only(bottom: 3),
                     child: widget.caption,
                   ),
+                if (jsonSizeBytes != null)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 3),
+                    child: Text('KB: ${jsonSizeBytes / 1024}'),
+                  ),
 
                 /// JsonTreeView
                 CrJsonWidget(
@@ -78,6 +89,7 @@ class JsonWidgetState extends State<JsonWidget> {
                     size: _iconSize,
                   ),
                   indentHeight: 5,
+                  json: widget.jsonObj,
                   indentLeftEndJsonNode: _iconSize,
                   jsonNodes: _listNodes!,
                   jsonController: _jsonController,

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cr_logger/src/bean/log_bean.dart';
 import 'package:cr_logger/src/bean/log_type.dart';
 import 'package:cr_logger/src/colors.dart';
@@ -52,6 +54,10 @@ class _LogLocalDetailPageState extends State<LogLocalDetailPage> {
     final logName = logTypes[widget.logType!];
 
     final isJsonData = widget.logBean?.message is Map<String, dynamic>;
+
+    final stringRepresantation =
+        isJsonData ? jsonEncode(widget.logBean?.message) : '';
+    final jsonSizeBytes = stringRepresantation.codeUnits.length;
 
     return Theme(
       data: CRLoggerHelper.instance.theme,
@@ -125,7 +131,7 @@ class _LogLocalDetailPageState extends State<LogLocalDetailPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
-                                child: Text(
+                                child: SelectableText(
                                   'message:\n${widget.logBean?.message}',
                                   style: CRStyle.bodyBlackMedium14.copyWith(
                                     color: widget.logBean?.color,
@@ -140,9 +146,16 @@ class _LogLocalDetailPageState extends State<LogLocalDetailPage> {
                           'time: ${widget.logBean?.time.formatTime()}',
                           style: CRStyle.bodyGreyRegular14,
                         ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'KB: ${jsonSizeBytes / 1024}',
+                          style: CRStyle.bodyGreyRegular14,
+                        ),
                         const SizedBox(height: 10),
                         if (listWidgetStackTrace.isNotEmpty)
-                          ...listWidgetStackTrace,
+                          SelectionArea(
+                            child: Column(children: listWidgetStackTrace),
+                          ),
                       ],
                     ),
                   ),
@@ -164,7 +177,7 @@ class _LogLocalDetailPageState extends State<LogLocalDetailPage> {
           if (stackCall.contains(packageName)) {
             final stackTraceParts = stackCall.split('package:');
             listWidgetStackTrace.add(
-              SelectableText.rich(
+              Text.rich(
                 TextSpan(
                   children: [
                     TextSpan(
@@ -188,7 +201,7 @@ class _LogLocalDetailPageState extends State<LogLocalDetailPage> {
             );
           } else {
             listWidgetStackTrace.add(
-              SelectableText(
+              Text(
                 stackCall,
                 style: CRStyle.h3Black,
               ),
