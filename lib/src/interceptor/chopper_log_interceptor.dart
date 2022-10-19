@@ -11,15 +11,17 @@ class ChopperLogInterceptor extends ResponseInterceptor
 
   @override
   FutureOr<Request> onRequest(Request request) async {
-    final reqOpt = RequestBean()
-      ..id = getRequestHashCode(await request.toBaseRequest())
-      ..url = request.url.toString()
-      ..method = request.method
-      ..contentType = request.headers['Content-Type'].toString()
-      ..requestTime = DateTime.now()
-      ..params = request.parameters
-      ..body = request.body
-      ..headers = request.headers;
+    final reqOpt = RequestBean(
+      id: getRequestHashCode(await request.toBaseRequest()),
+      method: request.method,
+      headers: request.headers,
+      body: request.body,
+      url: request.url.path,
+      contentType: request.headers['Content-Type'].toString(),
+      requestTime: DateTime.now(),
+      params: request.parameters,
+    );
+
     logManager.onRequest(reqOpt);
 
     return request;
