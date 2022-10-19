@@ -13,7 +13,7 @@ class ChopperLogInterceptor extends ResponseInterceptor
   FutureOr<Request> onRequest(Request request) async {
     final reqOpt = RequestBean()
       ..id = getRequestHashCode(await request.toBaseRequest())
-      ..url = request.url
+      ..url = request.url.toString()
       ..method = request.method
       ..contentType = request.headers['Content-Type'].toString()
       ..requestTime = DateTime.now()
